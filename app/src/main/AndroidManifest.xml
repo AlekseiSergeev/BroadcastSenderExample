@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.broadcastsenderexample">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name= "com.example.CUSTOM_PERMISSION" />
+
     <queries>
         <package android:name="com.example.broadcastreceiverexample"/>
     </queries>
@@ -22,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ExampleBroadcastReceiver2" />
+        <receiver android:name=".SenderReceiver" />
     </application>
 
 </manifest>
