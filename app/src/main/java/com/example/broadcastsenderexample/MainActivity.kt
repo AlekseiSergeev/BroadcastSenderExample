@@ -1,9 +1,8 @@
 package com.example.broadcastsenderexample
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.annotation.SuppressLint
+import android.content.*
+import android.content.pm.ResolveInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -21,12 +20,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendBroadcast(view: android.view.View) {
-        val intentExample = Intent("com.example.EXAMPLE_ACTION")
-        intentExample.putExtra("com.example.EXTRA_TEXT", "Broadcast received")
-        sendBroadcast(intentExample)
+//        val intentExample = Intent("com.example.EXAMPLE_ACTION")
+//        intentExample.putExtra("com.example.EXTRA_TEXT", "Broadcast received")
+//        sendBroadcast(intentExample)
 
-        val intent = Intent(this, ExampleBroadcastReceiver2::class.java)
-        sendBroadcast(intent)
+//        val intent = Intent()
+//        val cn = ComponentName("com.example.broadcastreceiverexample",
+//        "com.example.broadcastreceiverexample.ExampleBroadcastReceiver")
+//        intent.component = cn
+//        sendBroadcast(intent)
+        val intent = Intent("com.example.EXAMPLE_ACTION")
+        val packageManager = packageManager
+        val infos: List<ResolveInfo> = packageManager.queryBroadcastReceivers(intent, 0)
+        infos.forEach {
+            val cn = ComponentName(it.activityInfo.packageName,
+                                   it.activityInfo.name)
+            intent.component = cn
+            sendBroadcast(intent)
+        }
     }
 
     private val broadcastReceiver = object: BroadcastReceiver() {
